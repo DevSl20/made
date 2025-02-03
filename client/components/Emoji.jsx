@@ -29,7 +29,10 @@ function EmojiSelect({ onClick }) {
         <Button
           className="text-2xl"
           variant="faded"
-          onPress={() => onClick(emoji)}
+          onPress={() => {
+            onClick(emoji);
+            server.emit("emoji", emoji);
+        }}
         >
           {emoji}
         </Button>

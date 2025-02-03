@@ -6,15 +6,19 @@ const app = express();
 const server = http.createServer(app);
 
 app.get("/", (req, res) => {
-  res.send("Server is up and running!");
+  res.send("Server is Active and Running!");
 });
 
 const io = new Server(server);
 
-socket.on("emoji", (socket) => {
-  console.log(socket.id);
+io.on("connection", (socket) => {
+  console.log(`New client connected: ${socket.id}`);
+
+  socket.on("emoji", (data) => {
+    socket.broadcast.emit("new_emoji", data);
+  });
 });
 
 server.listen(8000, () => {
-  console.log("Server is up and running");
+  console.log("Server is Active and Running");
 });
