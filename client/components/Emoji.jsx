@@ -6,7 +6,7 @@ function Emoji() {
 
   return (
     <div className="min-h-screen flex items-center justify-center flex-col gap-5">
-      <h1 className="text-gray-600 uppercase text-sm">MADE App</h1>
+      <h1 className="text-gray-600 uppercase text-sm">MADE ROOM</h1>
       <EmojiPreview emoji={emoji} />
       <EmojiSelect onClick={setEmoji} />
     </div>
