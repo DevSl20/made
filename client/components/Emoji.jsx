@@ -1,5 +1,8 @@
 import { Button, Card } from "@heroui/react";
 import { useState } from "react";
+import { io } from "socket.io-client";
+
+const server = io("https://turbo-xylophone-wr94jjpq7qqwh5ggv-8000.app.github.dev/");
 
 function Emoji() {
   const [emoji, setEmoji] = useState("🙂");
