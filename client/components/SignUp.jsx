@@ -11,7 +11,7 @@ import {
   Button,
 } from "@heroui/react";
 
-function SignUp(setUser) {
+function SignUp({ setUser, socket }) {
   const onSubmit = (e) => {
     // Prevent default browser page refresh.
     e.preventDefault();
@@ -19,9 +19,9 @@ function SignUp(setUser) {
     // Get form data as an object.
     const data = Object.fromEntries(new FormData(e.currentTarget));
 
-    console.log(data);
-
-    // TODO: Submit data to your backend API.
+    // Emit this to our server.
+    setUser(data);
+    socket.emit("new_user", data);
   };
 
   return (
@@ -36,7 +36,7 @@ function SignUp(setUser) {
             width={40}
           />
           <div className="flex flex-col">
-            <p className="text-large font-bold">MADE ROOM</p>
+            <p className="text-xl font-bold">MADE ROOM</p>
             <p className="text-small text-default-500">made.phleebs.tech</p>
           </div>
         </CardHeader>
@@ -53,6 +53,7 @@ function SignUp(setUser) {
               name="name"
               placeholder="Enter your name"
               type="text"
+              autoComplete="off"
             />
             <Button type="submit">Enter</Button>
           </Form>
