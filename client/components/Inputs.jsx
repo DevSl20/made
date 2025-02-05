@@ -9,10 +9,13 @@ function Inputs() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log(input);
-
-    inputUpload.current.click();
-
+    if (input) {
+      console.log(input);
+      setInput("");
+    } else {
+      inputUpload.current.click();
+    }
+    
     setInput("");
   };
 
