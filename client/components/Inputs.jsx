@@ -6,53 +6,17 @@ function Inputs({ socket, name, setMessages }) {
   const [input, setInput] = useState("");
   const inputUpload = useRef(null);
 
-  const handleFileUpload = (e) => {
-    const file = e.target.files[0];
-
-    const reader = new FileReader();
-
-    reader.onloadend = function () {
-      // Here is the Base64 string
-      const base64String = reader.result;
-
-      const msg = {
-        type: "image",
-        content: base64String,
-        user: {
-          id: socket.id,
-          name: name,
-        },
-      };
-
-      socket.emit("message", msg);
-      setMessages((prevState) => [...prevState, msg]);
-    };
-
-    if (file) {
-      reader.readAsDataURL(file); // Converts image to base64 URI
-    }
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    if (!input) {
-      inputUpload.current.click();
-    } else {
-      const msg = {
-        type: input.startsWith("http") ? "link" : "text",
-        content: input,
-        user: {
-          id: socket.id,
-          name: name,
-        },
-      };
-
-      socket.emit("message", msg);
-      setMessages((prevState) => [...prevState, msg]);
-
+    if (input) {
+      console.log(input);
       setInput("");
+    } else {
+      inputUpload.current.click();
     }
+    
+    setInput("");
   };
 
   return (
@@ -68,14 +32,7 @@ function Inputs({ socket, name, setMessages }) {
         autoComplete="off"
       />
 
-      <input
-        type="file"
-        name="file"
-        ref={inputUpload}
-        hidden
-        accept="image/png, image/jpeg"
-        onChange={handleFileUpload}
-      />
+      <input type="file" name="file" ref={inputUpload} hidden />
 
       <Button className="h-auto bg-blue-400" type="submit">
         {input ? <SendHorizontalIcon /> : <UploadIcon />}
